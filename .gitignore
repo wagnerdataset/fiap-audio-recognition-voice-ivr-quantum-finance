@@ -1,0 +1,80 @@
+# ---- Python basics ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.venv*/
+venv*/
+env*/
+
+# Packaging / build
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Caches / tools
+.pytest_cache/
+.tox/
+.nox/
+.cache/
+.mypy_cache/
+.pyre/
+.pytype/
+.ruff_cache/
+.dmypy.json
+.hypothesis/
+coverage.xml
+htmlcov/
+.coverage*
+.pyre_configuration.local
+
+# Jupyter
+#.ipynb_checkpoints/
+#*.ipynb
+
+# Editors / IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & temp
+logs/
+*.log
+*.pid
+*.tmp
+*.temp
+
+# Environment & secrets
+.env
+.env.*
+*.local
+.python-version
+
+# ---- Project-specific (audio/TTS/STT) ----
+# Generated audio and media
+audio/
+*.wav
+*.mp3
+*.ogg
+
+# Downloaded/large STT/TTS models
+vosk-model*/
+models/
+**/models/
+
+# If you want to keep some VS Code settings, comment the .vscode/ rule above
+# and explicitly allow-listed files like:
+# !.vscode/settings.json
