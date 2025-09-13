@@ -51,6 +51,7 @@ Este projeto implementa um **IVR simplificado** (menu de atendimento por voz) pa
 
 ## 📁 Estrutura de diretórios
 
+```
 ivr-system/
 ├── main.py          # Arquivo principal de execução
 ├── .gitignore
@@ -67,6 +68,7 @@ ivr-system/
 └── audio/
     ├── pt/          # Arquivos de áudio em português
     └── en/          # Arquivos de áudio em inglês
+```
 
 ---
 
