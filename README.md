@@ -12,11 +12,11 @@
 [![Status](https://img.shields.io/badge/Status-Funcional-success)](#)
 [![Tipo](https://img.shields.io/badge/Tipo-Acad%C3%AAmico-orange)](#)
 
-
 ---
 
 Este projeto implementa um **IVR simplificado** (menu de atendimento por voz) para a QuantumFinance:
 
+- **Seleção de provedor**: Azure Speech (TTS + STT) / Padrão (gTTS + Google/Vosk)
 - **Seleção inicial de idioma**: ao iniciar, o sistema pergunta:
   - “Você deseja atendimento em português ou inglês?”
   - “Which language do you prefer, Portuguese or English?”
