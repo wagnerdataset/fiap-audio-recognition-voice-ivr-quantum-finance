@@ -39,7 +39,36 @@ Este projeto implementa um **IVR simplificado** (menu de atendimento por voz) pa
 
 ---
 
+## 🔊 Provedores de voz/STT
+
+Ao iniciar o main.py, você escolhe o provedor:
+
+### 1) Azure Speech (TTS + STT)
+
+- Seleção antes da conversa: o programa pergunta se deseja usar Azure ou Padrão.
+- Entrada de credenciais:
+   - Chave: AZURE_SPEECH_KEY (digitada com getpass, não aparece na tela).
+   - Região ou Endpoint:
+      - Região curta, ex.: brazilsouth, eastus2
+      - OU endpoint multi-service, ex.: https://eastus2.api.cognitive.microsoft.com
+- Compatibilidade com endpoint: se você colar a URL (multi-service), o sistema usa endpoint + key; se informar apenas a região, usa region + key.
+- Validação real das credenciais antes de iniciar (faz um TTS curto para arquivo temporário via SDK).
+- Execução completa com Azure:
+   - TTS: sintetiza com Azure (gera .wav).
+   - STT: reconhece com Azure (microfone padrão).
+   - Sem fallback por padrão (veja “Modo estrito” abaixo).
+
+### 2) Padrão (gTTS + Google/Vosk)
+
+   - TTS: gTTS (gera .mp3).
+   - STT: Google Web Speech (online) ou Vosk (offline) se você configurar VOSK_MODEL.
+
+   O player de áudio resolve automaticamente .wav e .mp3; então tanto Azure (wav) quanto gTTS (mp3) funcionam sem mudar nada.
+
+---
+
 ## 🔧 Tecnologias utilizadas
+- **Azure Speech SDK** (opcional) → TTS/STT nativos da Azure
 - **gTTS** → geração de fala (online, precisa de internet).  
 - **pygame** → player de MP3.  
 - **SpeechRecognition** → STT.  
@@ -53,21 +82,25 @@ Este projeto implementa um **IVR simplificado** (menu de atendimento por voz) pa
 
 ```
 ivr-system/
-├── main.py          # Arquivo principal de execução
-├── .gitignore
+├── main.py                 # fluxo principal: escolha do provedor, credenciais Azure, idioma e IVR
 ├── requirements.txt
 ├── README.md
 ├── ivr/
 │   ├── __init__.py
-│   ├── config.py    # flags, paths e logger
-│   ├── audio.py     # Configurações de áudio e TTS
-│   ├── stt.py       # Reconhecimento de fala (STT)
-│   ├── locales.py   # Textos e palavras-chave em PT/EN
-│   ├── match.py     # Utilitários de matching por palavra-chave
-│   └── menus.py     # Seleção de idioma, submenus e loop principal
+│   ├── config.py           # flags, paths, logger e controle de credenciais/provedor (Azure/Padrão)
+│   ├── audio.py            # TTS (Azure ou gTTS), player (pygame), beep e geração de assets
+│   ├── stt.py              # STT (Azure + Vosk + Google) respeitando modo estrito
+│   ├── locales.py          # textos e palavras-chave PT/EN
+│   ├── match.py            # identificação de opção por palavras-chave
+│   ├── menus.py            # seleção de idioma, submenus e loop do IVR
+│   └── providers/
+│       ├── __init__.py
+│       ├── azure_speech.py # integração Azure (endpoint/região) + validação via TTS para arquivo
+│       └── azure_utils.py  # utilitários p/ aceitar “região” OU “endpoint multi-service”
 └── audio/
-    ├── pt/          # Arquivos de áudio em português
-    └── en/          # Arquivos de áudio em inglês
+    ├── pt/                 # áudios gerados (wav/mp3) em PT
+    └── en/                 # áudios gerados (wav/mp3) em EN
+
 ```
 
 ---
@@ -171,6 +204,12 @@ export VOSK_MODEL=/home/usuario/modelos/vosk-model-small-pt-0.3
 
 ## 🛠️ Solução de problemas
 
+### Azure não autentica / valida mas não fala
+- Use endpoint completo se for multi-service (https://<region>.api.cognitive.microsoft.com) ou região curta se for recurso Speech dedicado (eastus2, brazilsouth).
+- Chave precisa pertencer ao mesmo recurso (e região) que você está usando.
+- Rede corporativa pode bloquear *.speech.microsoft.com.
+- Com IVR_DEBUG=1, a validação mostra o motivo detalhado (ex.: AuthenticationFailure).
+
 ### Sem áudio de saída
 - Verifique o volume e o dispositivo padrão do sistema.
 - Alguns ambientes exigem fechar outros apps que “seguram” o áudio.
@@ -190,9 +229,14 @@ export VOSK_MODEL=/home/usuario/modelos/vosk-model-small-pt-0.3
 
 ## 🎥 Roteiro para o vídeo de entrega
 1. Visão geral do projeto e estrutura de diretórios.
-2. Execução: seleção de idioma PT/EN.
-3. Demonstração de cada submenu:
+2. Execução com Azure:
+   - escolha do provedor
+   - entrada das credenciais (key + região/endpoint)
+   - validação bem-sucedida
+3. Execução: seleção de idioma PT/EN.
+4. Demonstração de cada submenu:
    - ouvir novamente
    - voltar ao menu
    - sair (encerrando por dentro do submenu)
-4. Encerramento pelo menu principal (opção 4).
+5. Demonstração dos três submenus (ouvir novamente, voltar, sair).
+6. Encerramento pelo menu principal (opção 4).

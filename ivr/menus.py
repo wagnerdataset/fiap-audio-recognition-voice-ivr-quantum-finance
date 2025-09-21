@@ -1,9 +1,8 @@
 from pathlib import Path
 
-from .config import AUDIO_BASE_DIR, log
 from .audio import tts_to_mp3, play_mp3, beep, ensure_assets, lang_prompt_files
 from .stt import recognize_speech
-from .match import identify_option, match_keywords
+from .match import match_keywords
 from .locales import PT, EN
 
 def select_language():
