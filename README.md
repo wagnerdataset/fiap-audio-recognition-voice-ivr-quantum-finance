@@ -1,4 +1,19 @@
-# QuantumFinance — Atendimento por Voz (TTS/STT)
+# Quantum Finance — Atendimento por Voz (TTS/STT)
+
+[![Projeto](https://img.shields.io/badge/Projeto-Audio%20Recognition%20Workshop(Atendimento%20por%20Voz)-blue)](#)
+[![Provedor](https://img.shields.io/badge/Provedor-Azure%20Speech-0078D4)](#)
+[![TTS](https://img.shields.io/badge/TTS-Azure%20%7C%20gTTS-4c1)](#)
+[![STT](https://img.shields.io/badge/STT-Azure%20%7C%20Vosk%20%7C%20Google-lightgrey)](#)
+[![Idiomas](https://img.shields.io/badge/Idiomas-PT%2FEN-brightgreen)](#)
+[![Modo](https://img.shields.io/badge/Modo-Voz%20%7C%20Texto-informational)](#)
+[![Strict](https://img.shields.io/badge/Azure%20Modo%20Estrito-ON-success)](#)
+[![Python](https://img.shields.io/badge/Python-%E2%89%A53.9-3776AB)](#)
+[![SO](https://img.shields.io/badge/SO-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)](#)
+[![Status](https://img.shields.io/badge/Status-Funcional-success)](#)
+[![Tipo](https://img.shields.io/badge/Tipo-Acad%C3%AAmico-orange)](#)
+
+
+---
 
 Este projeto implementa um **IVR simplificado** (menu de atendimento por voz) para a QuantumFinance:
 
